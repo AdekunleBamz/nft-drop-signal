@@ -10,6 +10,21 @@
   2. In the GitHub repo settings → Secrets and variables → Actions, add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`.
   3. Push to `main`. The workflow `Deploy to Vercel` will run and deploy automatically.
 
+**CI: automatic Vercel env sync**
+
+This repository's GitHub Actions workflow now includes a step that will automatically create or update the `NANSEN_API_KEY` environment variable on the Vercel project before each deploy. To make this work you must add the following GitHub Actions secrets in the repository settings:
+
+- `VERCEL_TOKEN` — a personal Vercel token (create at https://vercel.com/account/tokens)
+- `VERCEL_ORG_ID` — the organization ID for your Vercel project
+- `VERCEL_PROJECT_ID` — the project ID for your Vercel project
+- `NANSEN_API_KEY` — your Nansen API key (this will be written to Vercel by the workflow)
+
+The workflow masks secrets in logs, and uses the Vercel API to create an encrypted env var for `NANSEN_API_KEY` targeted at `production`, `preview`, and `development`.
+
+Security notes:
+- Do not commit secrets into the repository. Use GitHub Actions secrets only.
+- Rotate `VERCEL_TOKEN` if you ever accidentally share it.
+
 **Manual Deploy**
   1. Go to Vercel and import the GitHub repo `phessophissy/nft-drop-signal`.
   2. In the Vercel dashboard for the project, add environment variables (for example, `NANSEN_API_KEY`).
