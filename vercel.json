@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@vercel/next" }
+  ],
+  "routes": [
+    {
+      "src": "/api/og/drops",
+      "headers": { "cache-control": "s-maxage=60, stale-while-revalidate=120" }
+    }
+  ]
+}

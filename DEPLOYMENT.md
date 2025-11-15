@@ -1,4 +1,23 @@
-# Deployment Guide - NFT Drop Signal
+**Vercel Deployment**
+
+**Required GitHub Secrets**
+  - `VERCEL_TOKEN`: Personal Vercel token (create at https://vercel.com/account/tokens)
+  - `VERCEL_ORG_ID`: Vercel organization ID for the project
+  - `VERCEL_PROJECT_ID`: Vercel project ID for the project
+
+**Automatic Deploy (recommended)**
+  1. Create a Vercel project and connect it to this GitHub repository (or create the project and note the `projectId` and `orgId`).
+  2. In the GitHub repo settings → Secrets and variables → Actions, add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`.
+  3. Push to `main`. The workflow `Deploy to Vercel` will run and deploy automatically.
+
+**Manual Deploy**
+  1. Go to Vercel and import the GitHub repo `phessophissy/nft-drop-signal`.
+  2. In the Vercel dashboard for the project, add environment variables (for example, `NANSEN_API_KEY`).
+  3. Trigger a deploy from the Vercel UI.
+
+**Notes**
+  - Do NOT commit real API keys to the repository. Use GitHub secrets or Vercel environment variables instead.
+  - `vercel.json` is included to provide build configuration and a cache header for `/api/og/drops`.# Deployment Guide - NFT Drop Signal
 
 ## Overview
 This guide covers deploying your NFT Drop Signal miniApp to production and setting it up as a Farcaster Frame.
