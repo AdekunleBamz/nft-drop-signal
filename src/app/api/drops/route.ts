@@ -47,12 +47,19 @@ export async function GET() {
       const raw = data?.drops ?? data ?? []
       const drops = Array.isArray(raw)
         ? raw.map((d: any, i: number) => {
+            // Normalize several possible fields Nansen or other providers may return
+            const image = d.image_url ?? d.image ?? d.logo ?? d.thumbnail ?? d.collectionImage ?? '/placeholder.png'
+            const external = d.collection_url ?? d.opensea_url ?? d.external_url ?? d.url ?? d.detail_url ?? null
+            const contract = d.contract_address ?? d.contract ?? d.address ?? null
+
             return {
-              id: d.id ?? d.collectionId ?? String(i),
+              id: d.id ?? d.collectionId ?? contract ?? String(i),
               name: d.name ?? d.collectionName ?? d.collection ?? 'Unknown',
               collection: d.collection ?? d.collectionName ?? d.name ?? 'Unknown',
               floor_price: d.floor_price ?? d.floor ?? d.floorPrice ?? 'N/A',
-              image_url: d.image_url ?? d.image ?? d.logo ?? '/placeholder.png',
+              image_url: image,
+              collection_url: external,
+              contract_address: contract,
               blockchain: d.blockchain ?? d.chain ?? 'Ethereum',
               time: d.timestamp ?? d.time ?? new Date().toISOString(),
             }
