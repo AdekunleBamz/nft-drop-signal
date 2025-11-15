@@ -1,19 +1,17 @@
-// NFT Drop Signal API Service
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api'
-
+// NFT Drop Signal API Service (client-side helper)
 export interface NFTDrop {
   id: string
   name: string
   collection: string
-  floor_price: string
-  blockchain: string
-  timestamp: string
+  floor_price?: string
+  blockchain?: string
+  timestamp?: string
 }
 
 export const nftDropService = {
   async getDrops(): Promise<NFTDrop[]> {
     try {
-      const response = await fetch(`${API_BASE_URL}/drops`)
+      const response = await fetch('/api/drops')
       if (!response.ok) throw new Error('Failed to fetch drops')
       return await response.json()
     } catch (error) {
@@ -24,7 +22,7 @@ export const nftDropService = {
 
   async getDropById(id: string): Promise<NFTDrop | null> {
     try {
-      const response = await fetch(`${API_BASE_URL}/drops/${id}`)
+      const response = await fetch(`/api/drops/${id}`)
       if (!response.ok) throw new Error('Drop not found')
       return await response.json()
     } catch (error) {
@@ -35,7 +33,7 @@ export const nftDropService = {
 
   async trackDrop(dropId: string): Promise<boolean> {
     try {
-      const response = await fetch(`${API_BASE_URL}/drops/${dropId}/track`, {
+      const response = await fetch(`/api/drops/${dropId}/track`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       })

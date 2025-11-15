@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import './styles.css'
 
 export const metadata: Metadata = {
   title: 'NFT Drop Signal',
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+      <body className="bg-gradient-to-br from-choco-900 via-choco-700 to-choco-800 text-white">
         {children}
       </body>
     </html>

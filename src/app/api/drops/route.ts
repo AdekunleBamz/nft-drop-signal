@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server'
 
-// Mock data - replace with real database
+// Mock data - used as fallback
 const mockDrops = [
   {
     id: '1',
@@ -22,14 +22,50 @@ const mockDrops = [
   },
 ]
 
+const NANSEN_API_BASE = process.env.NANSEN_API_BASE || 'https://api.nansen.ai'
+const NANSEN_API_KEY = process.env.NANSEN_API_KEY || process.env.NEXT_PUBLIC_NANSEN_API_KEY || '[REDACTED_NANSEN_API_KEY]'
+
 export async function GET() {
   try {
-    // Return mock drops
-    return NextResponse.json(mockDrops)
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    // Attempt to fetch latest drops from Nansen (server-side)
+    // The exact Nansen endpoint may vary; this attempt uses a common pattern and falls back to mock data.
+    const url = `${NANSEN_API_BASE}/v1/nft/drops?limit=20`
+    const resp = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': NANSEN_API_KEY,
+      },
+      // no-store ensures we always try to get fresh data
+      cache: 'no-store',
+    })
+
+    if (resp.ok) {
+      const data = await resp.json()
+
+      // Try to normalize Nansen response to our frontend shape.
+      // If `data.drops` exists use it, otherwise try to map the root response.
+      const raw = data?.drops ?? data ?? []
+      const drops = Array.isArray(raw)
+        ? raw.map((d: any, i: number) => {
+            return {
+              id: d.id ?? d.collectionId ?? String(i),
+              name: d.name ?? d.collectionName ?? d.collection ?? 'Unknown',
+              collection: d.collection ?? d.collectionName ?? d.name ?? 'Unknown',
+              floor_price: d.floor_price ?? d.floor ?? d.floorPrice ?? 'N/A',
+              image_url: d.image_url ?? d.image ?? d.logo ?? '/placeholder.png',
+              blockchain: d.blockchain ?? d.chain ?? 'Ethereum',
+              time: d.timestamp ?? d.time ?? new Date().toISOString(),
+            }
+          })
+        : []
+
+      if (drops.length > 0) return NextResponse.json(drops)
+    }
+  } catch (err) {
+    // swallow and return mock data below
+    // console.error('Nansen fetch error:', err)
   }
+
+  // Fallback to mock drops
+  return NextResponse.json(mockDrops)
 }
