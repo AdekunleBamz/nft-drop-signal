@@ -1,7 +1,7 @@
 {
-  "name": "NFT Drop Signal",
-  "short_description": "Real-time NFT drop signals",
-  "description": "NFT Drop Signal aggregates and surfaces new NFT drops in near real-time, with collection links and floor price context.",
+  "name": "MiniSudoku",
+  "short_description": "Play Sudoku, Win USDC",
+  "description": "Competitive Sudoku game on Base chain. Pay $0.30 USDC to play, compete for the 24-hour prize pool. Powered by x402 Farcaster payments.",
   "url": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app",
   "icons": [
     "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/logo.png",
@@ -10,7 +10,28 @@
     "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/logo192.png"
   ],
   "author": {
-    "name": "NFT Drop Signal",
+    "name": "MiniSudoku",
     "url": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app"
+  },
+  "frame": {
+    "version": "next",
+    "imageUrl": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/api/og",
+    "button": {
+      "title": "Play MiniSudoku",
+      "action": {
+        "type": "launch_frame",
+        "name": "MiniSudoku",
+        "url": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/api/frame",
+        "splashImageUrl": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/api/og",
+        "splashBackgroundColor": "#022c22"
+      }
+    }
+  },
+  "payments": {
+    "x402": {
+      "enabled": true,
+      "chainId": "eip155:8453",
+      "token": "USDC"
+    }
   }
 }
