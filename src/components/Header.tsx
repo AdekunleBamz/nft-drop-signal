@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -58,13 +58,21 @@ export function Header() {
     <header className="bg-black/40 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">📡</span>
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo.png"
+              alt="NFT Drop Signal logo"
+              className="w-10 h-10 rounded-md object-cover"
+              onError={(e) => {
+                const t = e.currentTarget as HTMLImageElement
+                if (t.src.endsWith('/logo.png')) t.src = '/logo.svg'
+              }}
+            />
             <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               NFT Drop Signal
             </span>
           </div>
-          
+
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#" className="text-gray-300 hover:text-white transition-colors">
               Drops
