@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # Frontend Next.js application
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_APP_NAME=NFT Drop Signal
+      - NEXT_PUBLIC_RPC_URL=https://mainnet.base.org
+    depends_on:
+      - hardhat
+    networks:
+      - nft-drop-signal-network
+    restart: unless-stopped
+
+  # Hardhat development network
+  hardhat:
+    image: node:20-alpine
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ./.env:/workspace/.env:ro
+    ports:
+      - "8545:8545"
+    command: npx hardhat node --hostname 0.0.0.0 --port 8545
+    networks:
+      - nft-drop-signal-network
+    profiles:
+      - dev
+
+  # Local Ethereum node (Hardhat)
+  ethereum:
+    image: node:20-alpine
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ./.env:/workspace/.env:ro
+    ports:
+      - "8545:8545"
+    command: npx hardhat node --hostname 0.0.0.0 --port 8545
+    networks:
+      - nft-drop-signal-network
+    profiles:
+      - dev
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nft-drop-signal-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+volumes:
+  redis_data:
+
+networks:
+  nft-drop-signal-network:
+    driver: bridge
