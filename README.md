@@ -13,7 +13,7 @@ A Farcaster miniApp for real-time NFT drop signals and notifications.
 - 💰 Price floor tracking
 - 🔔 Instant notifications
 - 🌐 Multi-chain support
-
+- 🔥 Advanced filtering options
 ## Getting Started
 
 ### Prerequisites
@@ -107,7 +107,7 @@ A Farcaster miniApp for real-time NFT drop signals and notifications.
 - 💰 Price floor tracking
 - 🔔 Instant notifications
 - 🌐 Multi-chain support
-
+- 🔥 Advanced filtering options
 ## Getting Started
 
 ### Prerequisites
