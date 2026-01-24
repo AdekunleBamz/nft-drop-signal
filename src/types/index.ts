@@ -32,3 +32,4 @@ export interface Signal {
     replies: number
   }
 }
+export interface FilterOptions { blockchain?: string[]; sentiment?: ('bullish' | 'neutral' | 'bearish')[]; minFloorPrice?: number; maxFloorPrice?: number; }
