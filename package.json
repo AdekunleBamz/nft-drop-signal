@@ -8,7 +8,7 @@ my-first-commit
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile": "hardhat compile",
+    "format": "prettier --write .",    "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy-sudoku.ts --network base-sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy-sudoku.ts --network base"
   },
@@ -49,7 +49,7 @@ my-first-commit
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
+    "format": "prettier --write .",  },
   "dependencies": {
     "@walletconnect/ethereum-provider": "^2.23.0",
     "axios": "^1.6.0",
