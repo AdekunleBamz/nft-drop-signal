@@ -156,3 +156,26 @@ export async function getPlayerWins(playerAddress: `0x${string}`) {
     args: [playerAddress],
   });
 }
+
+/**
+ * Get contract owner (helper for frontend)
+ */
+export async function getContractOwner() {
+  // This would require adding an owner() function to the contract ABI
+  // Placeholder for contract ownership retrieval
+  return null;
+}
+
+/**
+ * Check if wallet is connected
+ */
+export function isWalletConnected(walletClient: any): boolean {
+  return walletClient?.account?.address !== undefined;
+}
+
+/**
+ * Get network chain ID
+ */
+export function getChainId(): number {
+  return base.id;
+}
