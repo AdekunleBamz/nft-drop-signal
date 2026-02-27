@@ -165,3 +165,10 @@ export async function getContractOwner() {
   // Placeholder for contract ownership retrieval
   return null;
 }
+
+/**
+ * Check if wallet is connected
+ */
+export function isWalletConnected(walletClient: any): boolean {
+  return walletClient?.account?.address !== undefined;
+}
