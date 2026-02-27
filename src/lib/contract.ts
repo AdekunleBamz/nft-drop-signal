@@ -172,3 +172,10 @@ export async function getContractOwner() {
 export function isWalletConnected(walletClient: any): boolean {
   return walletClient?.account?.address !== undefined;
 }
+
+/**
+ * Get network chain ID
+ */
+export function getChainId(): number {
+  return base.id;
+}
